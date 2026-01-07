@@ -30,3 +30,13 @@ This repository provides Brunei-focused date and time tools:
 
 ### Tampermonkey Installed
 ![Tampermonkey Installed](screenshots/tampermonkey-installed.png)
+
+## Brunei Regional Format
+
+All outputs follow Brunei Darussalam standards:
+
+- Date: **DD/MM/YYYY**
+- Time: **24-hour**
+- Timezone: **Asia/Brunei (UTC+8)**
+- Locale: **en-BN**
+- Optional Hijri format with `AH` suffix
