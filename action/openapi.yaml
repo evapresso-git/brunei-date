@@ -1,10 +1,12 @@
 openapi: 3.1.0
+
 info:
   title: Brunei Date & Hijri Formatter API
   description: |
-    Brunei Darussalam date & time formatter.
-    Supports Gregorian and Hijri calendars (Asia/Brunei).
-  version: 1.0.0
+    Formats date and time using Brunei Darussalam regional standards.
+    Default output is DD/MM/YYYY with 24-hour time (Asia/Brunei).
+    Optional Hijri (Islamic) calendar output is supported.
+  version: 1.1.0
 
   x-logo:
     url: https://evapresso-git.github.io/brunei-date/assets/brunei-date-icon.svg
@@ -12,29 +14,65 @@ info:
 
 servers:
   - url: https://api.example.com
+    description: Placeholder API server
 
 paths:
-  /format-date/bn:
+  /format-date/brunei:
     post:
       operationId: formatDateBrunei
-      summary: Format date using Brunei standards
+      summary: Format date using Brunei regional format
+      description: |
+        Returns a date formatted according to Brunei standards:
+        DD/MM/YYYY HH:mm:ss (24-hour, Asia/Brunei).
       requestBody:
         required: true
         content:
           application/json:
             schema:
               type: object
-              required: [date]
+              required:
+                - date
               properties:
                 date:
                   type: string
+                  description: ISO 8601 date string or Unix timestamp (ms)
+                  example: "2025-06-02T00:22:54Z"
+
                 calendar:
                   type: string
+                  description: Calendar system to use
                   enum: [gregorian, hijri]
                   default: gregorian
+
+                includeTime:
+                  type: boolean
+                  description: Include time in output (Gregorian only)
+                  default: true
+
                 timezone:
                   type: string
+                  description: IANA timezone
                   default: Asia/Brunei
+
+                locale:
+                  type: string
+                  description: Output locale
+                  default: en-BN
+
       responses:
         "200":
-          description: Formatted date
+          description: Brunei-formatted date output
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  formatted:
+                    type: string
+                    example: "02/06/2025 08:22:54"
+                  calendar:
+                    type: string
+                    example: gregorian
+                  timezone:
+                    type: string
+                    example: Asia/Brunei
