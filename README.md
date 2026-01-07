@@ -20,3 +20,13 @@ This repository provides Brunei-focused date and time tools:
 - `/assets` – SVG icon (GitHub Pages)
 - `/action` – OpenAPI 3.1.0 spec
 - `/tampermonkey` – Userscript
+## Screenshots
+
+### ChatGPT with Brunei Date & Hijri
+![ChatGPT Brunei Timestamp](screenshots/chatgpt-brunei-timestamp.png)
+
+### OpenAI Custom Action
+![Action Icon UI](screenshots/action-icon-ui.png)
+
+### Tampermonkey Installed
+![Tampermonkey Installed](screenshots/tampermonkey-installed.png)
