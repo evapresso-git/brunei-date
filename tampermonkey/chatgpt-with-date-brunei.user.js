@@ -32,15 +32,26 @@
     }).format(date);
   }
 
-  function formatHijri(date) {
-    return (
-      new Intl.DateTimeFormat('en-u-ca-islamic', {
-        timeZone: CONFIG.timezone,
-        day: '2-digit',
-        month: '2-digit',
-        year: 'numeric'
-      }).format(date) + ' AH'
-    );
+ function formatHijri(date) {
+  const parts = new Intl.DateTimeFormat('ms-BN-u-ca-islamic', {
+    timeZone: CONFIG.timezone,
+    day: 'numeric',
+    month: 'numeric',
+    year: 'numeric'
+  }).formatToParts(date);
+
+  const day = parts.find(p => p.type === 'day').value;
+  const monthIndex = parseInt(
+    parts.find(p => p.type === 'month').value,
+    10
+  ) - 1;
+  const year = parts.find(p => p.type === 'year').value;
+
+  const monthName = HIJRI_MONTHS_BN[monthIndex];
+
+  return `${day} ${monthName} ${year}H`;
+}
+
   }
 
   function createTimeTag(date) {
@@ -79,3 +90,19 @@
 
   processMessages();
 })();
+const HIJRI_MONTHS_BN = [
+  'Muharram',
+  'Safar',
+  'Rabiulawal',
+  'Rabiulakhir',
+  'Jamadilawal',
+  'Jamadilakhir',
+  'Rejab',
+  'Syaaban',
+  'Ramadhan',
+  'Syawal',
+  'Zulkaedah',
+  'Zulhijjah'
+];
+
+
