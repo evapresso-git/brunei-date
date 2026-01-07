@@ -3,10 +3,10 @@ openapi: 3.1.0
 info:
   title: Brunei Date & Hijri Formatter API
   description: |
-    Formats date and time using Brunei Darussalam regional standards.
-    Default output is DD/MM/YYYY with 24-hour time (Asia/Brunei).
-    Optional Hijri (Islamic) calendar output is supported.
-  version: 1.1.0
+    Formats dates using Brunei Darussalam standards.
+    Hijri month names follow official Brunei (KHEU) Malay wording
+    such as Ramadhan, Rejab, Syaaban, and Zulhijjah.
+  version: 1.3.0
 
   x-logo:
     url: https://evapresso-git.github.io/brunei-date/assets/brunei-date-icon.svg
@@ -14,54 +14,40 @@ info:
 
 servers:
   - url: https://api.example.com
-    description: Placeholder API server
 
 paths:
   /format-date/brunei:
     post:
       operationId: formatDateBrunei
-      summary: Format date using Brunei regional format
-      description: |
-        Returns a date formatted according to Brunei standards:
-        DD/MM/YYYY HH:mm:ss (24-hour, Asia/Brunei).
+      summary: Format date using Brunei regional standards
       requestBody:
         required: true
         content:
           application/json:
             schema:
               type: object
-              required:
-                - date
+              required: [date]
               properties:
                 date:
                   type: string
-                  description: ISO 8601 date string or Unix timestamp (ms)
-                  example: "2025-06-02T00:22:54Z"
-
+                  description: ISO 8601 date or Unix timestamp (ms)
                 calendar:
                   type: string
-                  description: Calendar system to use
                   enum: [gregorian, hijri]
                   default: gregorian
-
-                includeTime:
-                  type: boolean
-                  description: Include time in output (Gregorian only)
-                  default: true
-
+                hijriMonthStyle:
+                  type: string
+                  enum: [numeric, brunei-malay]
+                  default: brunei-malay
                 timezone:
                   type: string
-                  description: IANA timezone
                   default: Asia/Brunei
-
                 locale:
                   type: string
-                  description: Output locale
-                  default: en-BN
-
+                  default: ms-BN
       responses:
         "200":
-          description: Brunei-formatted date output
+          description: Formatted Brunei date output
           content:
             application/json:
               schema:
@@ -69,10 +55,4 @@ paths:
                 properties:
                   formatted:
                     type: string
-                    example: "02/06/2025 08:22:54"
-                  calendar:
-                    type: string
-                    example: gregorian
-                  timezone:
-                    type: string
-                    example: Asia/Brunei
+                    example: "5 Ramadhan 1446H"
