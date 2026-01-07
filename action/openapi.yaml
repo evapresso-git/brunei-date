@@ -1,0 +1,40 @@
+openapi: 3.1.0
+info:
+  title: Brunei Date & Hijri Formatter API
+  description: |
+    Brunei Darussalam date & time formatter.
+    Supports Gregorian and Hijri calendars (Asia/Brunei).
+  version: 1.0.0
+
+  x-logo:
+    url: https://evapresso-git.github.io/brunei-date/assets/brunei-date-icon.svg
+    altText: Brunei Date & Hijri Icon
+
+servers:
+  - url: https://api.example.com
+
+paths:
+  /format-date/bn:
+    post:
+      operationId: formatDateBrunei
+      summary: Format date using Brunei standards
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [date]
+              properties:
+                date:
+                  type: string
+                calendar:
+                  type: string
+                  enum: [gregorian, hijri]
+                  default: gregorian
+                timezone:
+                  type: string
+                  default: Asia/Brunei
+      responses:
+        "200":
+          description: Formatted date
