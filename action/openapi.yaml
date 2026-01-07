@@ -13,7 +13,7 @@ info:
     altText: Brunei Date & Hijri Icon
 
 servers:
-  - url: https://api.example.com
+  - url:  https://brunei-date.khadijah-abidin.workers.dev
 
 paths:
   /format-date/brunei:
